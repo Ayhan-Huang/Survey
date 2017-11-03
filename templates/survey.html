@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'arya/plugins/bootstrap/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'custom.css' %}"/>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-8 col-md-offset-2 survey_body">
+        <form>
+            <h1>{{ sheet.theme }}</h1>
+            <hr>
+            <h5 class="text-right" style="color: orangered">*请认真填写,你的意见对我们非常重要!</h5>
+
+            <div id="survey_list">
+                {% for item in options %}
+                    {% if item.option == 1 %}
+                        <!-- 打分 开始-->
+                        <div class='question-block score' id="{{ item.id }}">
+                            <div>{{ forloop.counter }}.&nbsp;{{ item.question }}</div>
+                            <ul class="pagination">
+                                <li><span>1</span></li>
+                                <li><span>2</span></li>
+                                <li><span>3</span></li>
+                                <li><span>4</span></li>
+                                <li><span>5</span></li>
+                                <li><span>6</span></li>
+                                <li><span>7</span></li>
+                                <li><span>8</span></li>
+                                <li><span>9</span></li>
+                                <li><span>10</span></li>
+                            </ul>
+                            <div>
+                                <textarea placeholder="评分原因..." rows="3" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <!-- 打分 结束-->
+
+                    {% elif item.option == 2 %}
+                        <!-- 问答 开始-->
+                        <div class="question-block suggestion" id="{{ item.id }}">
+                            <div>{{ forloop.counter }}.&nbsp;{{ item.question }}</div>
+                            <textarea placeholder="必填，不少于15字" rows="3" class="form-control"></textarea>
+                        </div>
+                        <!-- 问答 结束-->
+                    {% endif %}
+                {% endfor %}
+
+                <div class="text-center">
+                    <button type='submit' class="btn btn-success glyphicon glyphicon-ok">&nbsp;提交问卷</button>
+
+                    <div id="response_data">
+
+                    </div>
+
+                </div>
+
+            </div>
+            <hr>
+        </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="{% static 'arya/js/jquery-3.2.1.js' %}"></script>
+<script src="{% static 'arya/js/jquery.cookie.js' %}"></script>
+<script>
+
+    //为点击打分绑定active属性和值
+    var scoreSet = $('.score');
+    $.each(scoreSet.find('li'), function () {
+        $(this).click(function () {
+            var val = $(this).text();
+            $(this).attr('class', 'active');
+            $(this).attr('choose', val);
+            $(this).siblings().removeClass('active');
+        });
+    });
+
+
+    var btn = $('[type="submit"]');
+
+    //点击btn，获取用户输入，ajax发送请求
+    btn.click(function (e) {
+        e.preventDefault();
+
+        //提交数据结构：{err: False, id: {'score': null, 'suggestion': 'xxx'}}
+        var data = {'err': false};
+
+        //获取打分值及反馈
+        $.each(scoreSet.find('li.active'), function () {
+            var id = $(this).parent().parent().attr('id');
+            console.log('id' + id);
+            var choose = $(this).attr('choose');
+            console.log('choose' + choose);
+            var text = $(this).parent().next().find('textarea').val();
+            console.log(text);
+
+            var temp = {
+                'choose': choose,
+                'text': text,
+            };
+            data[id] = temp;
+            console.log(data)
+        });
+
+        //获取问答反馈
+        var suggestionSet = $('.suggestion');
+        $.each(suggestionSet.find('textarea'), function () {
+            var id = $(this).parent().attr('id');
+            var text = $(this).val();
+
+            var temp = {
+                'choose': null,
+                'text': text,
+            };
+            data[id] = temp;
+        });
+
+        $.ajax({
+            url: "/survey/{{ sheet.id }}/",
+            type: 'POST',
+            data: {
+                'data': JSON.stringify(data),
+            },
+            headers: {'X-CSRFToken': $.cookie('csrftoken')},
+            success: function (response) {
+                console.log(response);
+            }
+        })
+    });
+
+
+</script>
+
+</body>
+</html>

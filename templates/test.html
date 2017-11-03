@@ -1,0 +1,353 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'arya/plugins/bootstrap/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'arya/css/commons.css' %}"/>
+    {% block css %}
+    {% endblock %}
+
+</head>
+<body>
+<div class="pg-header">
+    <div class="logo left" style="text-align: center;background-color: #1c5a9c;">
+        <a href="#" style="color: #ffffff;font-size:22px;font-weight: bold;text-decoration: none">
+            CRM系统
+        </a>
+    </div>
+
+    <div class="left-menu left">
+        <a class="menu-item" href="#">平台首页</a>
+        <a class="menu-item" href="#">资产首页</a>
+    </div>
+
+    <div class="right-menu right clearfix">
+
+        <div class="user-info right">
+            <a href="#" class="avatar">
+                <img class="img-circle" src="{% static 'arya/img/default_avatar.png' %}">
+            </a>
+
+            <div class="more-info">
+                <a href="#" class="more-item">个人信息</a>
+                <a href="/logout.html" class="more-item">注销</a>
+            </div>
+        </div>
+
+        <a class="user-menu right">
+            消息
+            <i class="fa fa-commenting-o" aria-hidden="true"></i>
+            <span class="badge bg-success">2</span>
+        </a>
+
+        <a class="user-menu right">
+            通知
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="badge bg-success">2</span>
+        </a>
+
+        <a class="user-menu right">
+            任务
+            <i class="fa fa-bell-o" aria-hidden="true"></i>
+            <span class="badge bg-danger">4</span>
+        </a>
+    </div>
+
+</div>
+
+<div class="pg-body">
+    <div class="menu">
+
+        <a class="menu-item" href="#">
+            <i class="fa fa-desktop" aria-hidden="true"></i>
+            <span>菜单</span>
+        </a>
+
+
+    </div>
+    <div class="content">
+        {% block breadcrumb %} {% endblock %}
+        {% block content %}
+            <!-- 首页开始 -->
+            <div class="container">
+            <div class="col-md-12 features-flow">
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/human-resource" class="set_anch">
+                        <div class="hr-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/human-resource-feature.png"
+                                        width="56" height="38" alt="Human Resource"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/human-resource"><span itemprop="applicationCategory">Human Resource</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/performance-appraisal" class="set_anch">
+                        <div class="pa-border">
+                            <div class="features-group">
+                                <div class="padding-top25"><img
+                                        src="http://www.sentrifugo.com/public/media/img/performance-appraisal-feature.png"
+                                        width="40" height="33" alt="Performance Appraisal"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/performance-appraisal"><span
+                            itemprop="applicationCategory">Performance Appraisal</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/employee-self-service" class="set_anch">
+                        <div class="ss-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/employee-self-service-feature.png"
+                                        width="44" height="39" alt="Employee Self-Service"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/employee-self-service"><span
+                            itemprop="applicationCategory">Employee Self-Service</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/analytics" class="set_anch">
+                        <div class="an-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/analytics-feature.png"
+                                        width="42" height="40" alt="Analytics"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/analytics"><span itemprop="applicationCategory">Analytics</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/background-checks" class="set_anch">
+                        <div class="bc-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/background-checks-feature.png"
+                                        width="38" height="38" alt="Background Checks"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/background-checks"><span itemprop="applicationCategory">Background Checks</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/leave-management" class="set_anch">
+                        <div class="lm-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/leave-management.png" width="42"
+                                        height="42" alt="Leave Management"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/leave-management"><span itemprop="applicationCategory">Leave Management</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/service-request" class="set_anch">
+                        <div class="sr-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/service-request-feature.png"
+                                        width="36" height="40" alt="Service Request"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/service-request"><span itemprop="applicationCategory">Service Request</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/resource-requisition" class="set_anch">
+                        <div class="rr-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/resource-requisition-feature.png"
+                                        width="40" height="40" alt="Resource Requisition"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/resource-requisition"><span
+                            itemprop="applicationCategory">Talent Acquisition</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/interview-schedule" class="set_anch">
+                        <div class="is-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/interview-schedule.png"
+                                        width="42" height="42" alt="Interview Schedule"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/interview-schedule"><span
+                            itemprop="applicationCategory">Interview Schedule</span></a>
+                </div>
+
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/feed-forward" class="set_anch">
+                        <div class="sh-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/shortcut-feature.png" width="42"
+                                        height="42" alt="Feed Forward"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/feed-forward"><span itemprop="applicationCategory">Feed Forward</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/time-management" class="set_anch">
+                        <div class="tm-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/time-management-feature.png"
+                                        width="43" height="42" alt="Time Management"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/time-management"><span itemprop="applicationCategory">Time Management</span></a>
+                </div>
+
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/expenses" class="set_anch">
+                        <div class="hr-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/expenses-feature.png" width="43"
+                                        height="42" alt="Expenses"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/expenses"><span
+                            itemprop="applicationCategory">Expenses</span></a>
+                </div>
+
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/asset-management" class="set_anch">
+                        <div class="pa-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/asset-management-feature.png"
+                                        width="43" height="42" alt="Asset Management"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/asset-management"><span itemprop="applicationCategory">Asset Management</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/dashboard" class="set_anch">
+                        <div class="db-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/dashboard-feature.png"
+                                        width="42" height="42" alt="Dashboard"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/dashboard">Dashboard</a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/disciplinary" class="set_anch">
+                        <div class="bc-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/dashboard-disciplinary.png"
+                                        width="42" height="42" alt="Disciplinary"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/disciplinary">Disciplinary</a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features/employee-exit-separation" class="set_anch">
+                        <div class="an-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img
+                                        src="http://www.sentrifugo.com/public/media/img/employee-exit-separation.png"
+                                        width="42" height="42" alt="Employee Exit/Separation"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features/disciplinary">Employee Exit/Separation</a>
+                </div>
+
+                <!--
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features#policy-documents" class="set_anch">
+                        <div class="hr-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img src="http://www.sentrifugo.com/public/media/img/Policy_Documents_Feature.png" width="42" height="42" alt="Policy Documents"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features#policy-documents"><span itemprop="applicationCategory">Policy Documents</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features#expense-management" class="set_anch">
+                        <div class="pa-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img src="http://www.sentrifugo.com/public/media/img/Expense_Management_Feature.png" width="42" height="42" alt="Expense Management"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features#expense-management"><span itemprop="applicationCategory">Expense Management</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features#invoice" class="set_anch">
+                        <div class="ss-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img src="http://www.sentrifugo.com/public/media/img/Invoice_Feature.png" width="42" height="42" alt="Invoice"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features#invoice"><span itemprop="applicationCategory">Invoice</span></a>
+                </div>
+
+                <div class="col-sm-6 col-md-3 fetaures-circle cirle-ctrl">
+                    <a href="http://www.sentrifugo.com/features#employee-offboarding" class="set_anch">
+                        <div class="an-border">
+                            <div class="features-group">
+                                <div class="padding-top20"><img src="http://www.sentrifugo.com/public/media/img/Employee_Offboarding_Feature.png" width="42" height="42" alt="Employee Offboarding"></div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="http://www.sentrifugo.com/features#employee-offboarding"><span itemprop="applicationCategory">Employee Offboarding</span></a>
+                </div>
+                -->
+
+            </div>
+            </div>
+            <!-- 首页结束 -->
+        {% endblock %}
+    </div>
+</div>
+
+
+<script src="{% static 'arya/js/jquery-3.2.1.js' %}"></script>
+<script src="{% static 'arya/plugins/bootstrap/js/bootstrap.js' %}"></script>
+<script>
+
+</script>
+</body>
+</html>
