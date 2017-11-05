@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'arya/plugins/bootstrap/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'arya/css/commons.css' %}"/>
+
+    <style>
+        .question-block, .icons {
+            margin-top: 15px;
+            padding: 10px;
+        }
+
+        .question-area {
+            margin-top: 30px;
+            position: relative;
+        }
+
+        #option-area {
+            position: fixed;
+            right: 50px;
+            top: 80px;
+        }
+
+        .question-group {
+            margin-left: 55px;
+            margin-bottom: 10px;
+            border: 1px lightgray solid;
+        }
+
+        .question-group:hover {
+            background-color: lightblue;
+        }
+
+    </style>
+</head>
+<body>
+<div class="pg-header">
+    <div class="logo left" style="text-align: center;background-color: #1c5a9c;">
+        <a href="#" style="color: #ffffff;font-size:22px;font-weight: bold;text-decoration: none">
+            CRM系统
+        </a>
+    </div>
+
+    <div class="left-menu left">
+        <a class="menu-item" href="#">平台首页</a>
+        <a class="menu-item" href="#">资产首页</a>
+    </div>
+
+    <div class="right-menu right clearfix">
+
+        <div class="user-info right">
+            <a href="#" class="avatar">
+                <img class="img-circle" src="{% static 'arya/img/default_avatar.png' %}">
+            </a>
+
+            <div class="more-info">
+                <a href="#" class="more-item">个人信息</a>
+                <a href="/logout.html" class="more-item">注销</a>
+            </div>
+        </div>
+
+        <a class="user-menu right">
+            消息
+            <i class="fa fa-commenting-o" aria-hidden="true"></i>
+            <span class="badge bg-success">2</span>
+        </a>
+
+        <a class="user-menu right">
+            通知
+            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="badge bg-success">2</span>
+        </a>
+
+        <a class="user-menu right">
+            任务
+            <i class="fa fa-bell-o" aria-hidden="true"></i>
+            <span class="badge bg-danger">4</span>
+        </a>
+    </div>
+
+</div>
+
+<div class="pg-body">
+    <div class="menu">
+
+        <a class="menu-item" href="#">
+            <i class="fa fa-desktop" aria-hidden="true"></i>
+            <span>日志管理</span>
+        </a>
+
+    </div>
+    <div class="content">
+        {% block breadcrumb %} {% endblock %}
+        {% block content %}
+            <div class="container question-area">
+                <div class="row">
+                    <div id="option-area" class="col-md-3 col-md-offset-8">
+                        <p>所属问卷：{{ sheet_obj }}</p>
+                        <p>问题总计：<span id="q-counter">1</span></p>
+                        <p>创建人：{{ creator }}</p>
+                        <button class="btn btn-primary btn-block" id="commit-btn">提交</button>
+                    </div>
+                    <!-- 问题容器 开始 -->
+                    <div id="question-container">
+                        <!-- 单个问题 开始 -->
+                        <div class="col-md-7 col-md-offset-1 question-group" id="1">
+                            <div class="icons col-md-1">
+                                <a class="btn btn-default add-block">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </a>
+                            </div>
+                            <div class="question-block col-md-11">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+
+                                        <label for="" class="col-sm-2 control-label">问题类型</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" style="width: 50%" name="question-type">
+                                                {% for item in choices %}
+                                                    <option value="{{ item.0 }}">{{ item.1 }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">问题描述</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" rows="3" name="question-desc"
+                                                      required></textarea>
+                                        </div>
+                                        <p class="err-msg"></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- 单个问题 结束 -->
+                    </div>
+                    <!-- 问题容器 结束 -->
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+</div>
+
+
+<script src="{% static 'arya/js/jquery-3.2.1.js' %}"></script>
+<script src="{% static 'arya/js/jquery.cookie.js' %}"></script>
+<script src="{% static 'arya/plugins/bootstrap/js/bootstrap.js' %}"></script>
+<script>
+
+    //问题计数
+    var questionCounter = 1;
+
+    //新增问题
+    $('.add-block').click(function () {
+        var $newBlock = $(this).parent().parent().clone();
+        $newBlock.find('.add-block').removeClass('add-block').addClass('del-unit');
+        $newBlock.find('.glyphicon-plus').attr('class', 'glyphicon glyphicon-minus');
+        $('#question-container').append($newBlock);
+
+        questionCounter ++;
+        $('#q-counter').text(questionCounter);
+    });
+
+    //删除问题
+    $('#question-container').on('click', '.del-unit', function () {
+        $(this).parent().parent().remove();
+
+        questionCounter --;
+        $('#q-counter').text(questionCounter);
+    });
+
+    //点击提交，循环所有问题组，添加id；
+    // 获取所有输入，ajax提交数据结构：{id: {'question-type': 1, 'question-desc': 'xxx'}, id:....}
+    $('#commit-btn').click(function () {
+        var count = 1;
+        var questionSet = $('.question-group');
+        questionSet.each(function () {
+            $(this).attr('id', count);
+            count++;
+        });
+
+        //获取输入，验证输入
+        var Err = false;
+        var data = {};
+
+        questionSet.each(function () {
+            var id = $(this).attr('id');
+            data[id] = {'question-type': null, 'question-desc': null};
+            var questionType = $(this).find('[name="question-type"]').val();
+            var questionDesc = $(this).find('[name="question-desc"]').val();
+            data[id]['question-type'] = questionType;
+            data[id]['question-desc'] = questionDesc;
+
+            //更改错误标志位，显示错误信息
+            if (questionDesc.length <= 15) {
+                Err = true;
+            }
+        });
+
+        //判断错误标志位；提交数据
+        if (Err) {
+            alert('问题描述不得少于15字！');
+        } else {
+            $.ajax({
+            type: 'POST',
+            data: {"data": JSON.stringify(data)},
+            dataType: 'JSON',
+            headers: {'X-CSRFToken': $.cookie('csrftoken')},
+            success: function (response) {
+                if (!response.err) {
+                    location.href = '/arya/app01/surveysheet'
+                }
+            }
+        })
+        }
+    })
+</script>
+</body>
+</html>

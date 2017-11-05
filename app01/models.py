@@ -23,7 +23,7 @@ class SurveySheet(models.Model):
     creator = models.ForeignKey(verbose_name='创建人',to='UserInfo', null=True)
 
     def __str__(self):
-        tpl = '{date} {theme} [id:{id}]'.format(date=self.date, theme=self.theme, id=self.id)
+        tpl = '{date} {theme}（问卷id:{id}）'.format(date=self.date, theme=self.theme, id=self.id)
         return tpl
 
 

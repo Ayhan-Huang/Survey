@@ -27,18 +27,32 @@ class SurveySheetConfig(sites.AryaConfig):
     def question_add(self, request, sheet_id):
         # 手动创建添加问卷问题页面，以支持批量添加
         # 问卷默认：sheet对象， 创建用户对象（登录后存入session)
-        sheet_obj = self.model_class.objects.filter(sheet_id=sheet_id).first()
-        user_id = request.session.get('login_info').get('id')
-        creator = models.UserInfo.objects.filter(id=user_id).first()
+        sheet_obj = self.model_class.objects.filter(id=sheet_id).first()
+        # user_id = request.session.get('login_info').get('id')
+        # creator = models.UserInfo.objects.filter(id=user_id).first()
+        if request.method == 'GET':
+            from django.middleware.csrf import get_token
+            get_token(request)
 
-        # 在问题页面，复制自身时，如何保证各个问题区分开 -- 循环遍历，组织为字典形式的结构，类似于问卷表；ajax发送请求
+            def generate_choices():
+                option_type_choices = models.SurveyOption.option_type
+                for item in option_type_choices:
+                    yield item
 
+            context = {
+                'choices': generate_choices(),
+                'sheet_obj': sheet_obj,
+                # 'creator': creator
+            }
 
+            return render(request, 'question_add.html', context)
 
+        else:
+            data = request.POST.get('data')
+            print(data)
 
-
-
-        return HttpResponse('详细信息')
+            from django.http import JsonResponse
+            return JsonResponse({'err':None, 'status':202})
 
     def add_option(self, obj=None, is_header=False):
         if is_header:
